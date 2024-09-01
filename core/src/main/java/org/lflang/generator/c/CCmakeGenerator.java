@@ -353,6 +353,17 @@ public class CCmakeGenerator {
     cMakeCode.pr("target_include_directories(${LF_MAIN_TARGET} PUBLIC include/core/utils)");
     cMakeCode.newLine();
 
+    // Xavier Warzee
+    cMakeCode.pr("# manage warning options depending of the C compiler");
+    cMakeCode.pr("if(MSVC)");
+    //cMakeCode.pr("  target_compile_options(${LF_MAIN_TARGET} PRIVATE /W4 /WX)");
+    cMakeCode.pr("  target_compile_options(${LF_MAIN_TARGET} PRIVATE /W4)");
+    cMakeCode.pr("else()");
+    //cMakeCode.pr("  target_compile_options(${LF_MAIN_TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror)");
+    cMakeCode.pr("  target_compile_options(${LF_MAIN_TARGET} PRIVATE -Wall)");
+    cMakeCode.pr("endif()");
+    cMakeCode.newLine();
+    
     // post target definition board configurations
     switch (platformOptions.platform()) {
       case RP2040:
